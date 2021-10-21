@@ -4,6 +4,7 @@ import argparse
 import boto3
 import os
 import random
+import sys
 from botocore.config import Config
 
 def init_boto3(region): 
@@ -44,6 +45,10 @@ def get_instance_public_dns(instance_response):
 
     return instances
 
+def return_error(error, code):
+       print('Error: ' + str(error))
+       sys.exit(code)
+
 def main():
     parser = argparse.ArgumentParser(description='A helpful too for SSH\'ing into EC2 instances')
 
@@ -55,12 +60,12 @@ def main():
 
     parser.add_argument('--random', '-r', action='store_true', help='Connect to a random instance in a cluster')
     parser.add_argument('--oldest', '-o', action='store_true', help='Connect to the oldest instance in a cluster')
-    parser.add_argument('--newest', '-n', action='store_true', help='Connect to the newest instance in a cluster')
+    parser.add_argument('--newest', '-e', action='store_true', help='Connect to the newest instance in a cluster')
 
     args = parser.parse_args()
 
     if args.name and args.instance:
-        raise argparse.ArgumentTypeError('You may not use both name and instance at the same time.')
+        return_error('You may not use both name (-n) and instance (-i) at the same time.', 2)
 
     boto3_client = init_boto3(args.region)
     raw_instances = get_instances(boto3_client, args.cluster, args.instance)
