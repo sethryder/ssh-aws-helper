@@ -68,7 +68,7 @@ def main():
         return_error('You may not use both name (-n) and instance (-i) at the same time.', 2)
 
     boto3_client = init_boto3(args.region)
-    raw_instances = get_instances(boto3_client, args.cluster, args.instance)
+    raw_instances = get_instances(boto3_client, args.name, args.instance)
     
     instances = get_instance_public_dns(raw_instances)
 
