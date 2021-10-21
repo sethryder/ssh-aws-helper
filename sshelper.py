@@ -1,4 +1,4 @@
-#!python3
+#!/usr/bin/env python3
 
 import argparse
 import boto3
@@ -45,8 +45,8 @@ def get_instance_public_dns(instance_response):
 
     return instances
 
-def return_error(error, code):
-       print('Error: ' + str(error))
+def return_error(error, code = 1):
+       print(str(error))
        sys.exit(code)
 
 def main():
@@ -65,10 +65,13 @@ def main():
     args = parser.parse_args()
 
     if args.name and args.instance:
-        return_error('You may not use both name (-n) and instance (-i) at the same time.', 2)
+        return_error('Error: You may not use both name (-n) and instance (-i) at the same time.', 2)
 
     boto3_client = init_boto3(args.region)
     raw_instances = get_instances(boto3_client, args.name, args.instance)
+
+    if len(raw_instances['Reservations']) == 0:
+        return_error('No instances found!')
     
     instances = get_instance_public_dns(raw_instances)
 
