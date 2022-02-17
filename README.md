@@ -56,7 +56,7 @@ optional arguments:
   --instance INSTANCE, -i INSTANCE      Instance ID
   --user USER, -u USER                  SSH User (default: ec2-user)
   --region REGION, -g REGION            EC2 Region (default: us-east-1)
-  --random, -r (default)                 Connect to a random instance in a cluster
+  --random, -r (default)                Connect to a random instance in a cluster
   --oldest, -o                          Connect to the oldest instance in a cluster
   --newest, -e                          Connect to the newest instance in a cluster
 ```
