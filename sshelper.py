@@ -55,7 +55,7 @@ def main():
     parser.add_argument('--name', '-n', default=False, help='Shared name tag between instances')
     parser.add_argument('--instance', '-i', default=False, help='Instance ID')
 
-    parser.add_argument('--user', '-u', default='ec2-user', help='SSH User (default: ec2-user)')
+    parser.add_argument('--user', '-u', default=False, help='SSH User (default: ec2-user)')
     parser.add_argument('--region', '-g', default='us-east-1', help='EC2 Region (default: us-east-1)')
 
     parser.add_argument('--random', '-r', action='store_true', help='Connect to a random instance in a cluster')
@@ -72,15 +72,20 @@ def main():
 
     if len(raw_instances['Reservations']) == 0:
         return_error('No instances found!')
+
+    if not args.user:
+        ssh_user_string = ''
+    else:
+        ssh_user_sring = args.user + '@'
     
     instances = get_instance_public_dns(raw_instances)
 
     if args.random or (not args.random and not args.oldest and not args.newest):
-        os.system('ssh ' + args.user + '@' + instances['random'])
+        os.system('ssh ' + ssh_user_sring + instances['random'])
     elif args.oldest:
-        os.system('ssh ' + args.user + '@' + instances['oldest'])
+        os.system('ssh ' + ssh_user_sring + instances['oldest'])
     elif args.newest:
-        os.system('ssh ' + args.user + '@' + instances['newest'])
+        os.system('ssh ' + ssh_user_sring + instances['newest'])
 
 
 if __name__ == "__main__":
