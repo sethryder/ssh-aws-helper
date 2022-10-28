@@ -55,7 +55,7 @@ def main():
     parser.add_argument('--name', '-n', default=False, help='Shared name tag between instances')
     parser.add_argument('--instance', '-i', default=False, help='Instance ID')
 
-    parser.add_argument('--user', '-u', default=False, help='SSH User (default: ec2-user)')
+    parser.add_argument('--user', '-u', default=False, help='SSH User')
     parser.add_argument('--region', '-g', default='us-east-1', help='EC2 Region (default: us-east-1)')
 
     parser.add_argument('--random', '-r', action='store_true', help='Connect to a random instance in a cluster')

@@ -54,7 +54,7 @@ optional arguments:
   -h, --help                            Show this help message and exit
   --name NAME, -n NAME                  Shared name tag between instances
   --instance INSTANCE, -i INSTANCE      Instance ID
-  --user USER, -u USER                  SSH User (default: ec2-user)
+  --user USER, -u USER                  SSH User
   --region REGION, -g REGION            EC2 Region (default: us-east-1)
   --random, -r (default)                Connect to a random instance in a cluster
   --oldest, -o                          Connect to the oldest instance in a cluster
